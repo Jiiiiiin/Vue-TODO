@@ -11,6 +11,8 @@ const config = {
   target: 'web',
   entry: path.join(__dirname, 'src/index.js'),
   output: {
+    // https://juejin.im/post/5ae9ae5e518825672f19b094
+    // publicPath: '/pmobile/',
     filename: 'bundle.js',
     path: path.join(__dirname, 'dist')
   },
@@ -66,14 +68,21 @@ const config = {
 
 // 根据不同环境去做判断不同的配置
 if (isDev) {
+  config.devtool = '#inline-source-map'
   config.devServer = {
     port: '8000',
     // 支持localhost / ip进行访问
     host: '0.0.0.0',
     overlay: {
       errors: true
-    }
+    },
+    hot: true,
   }
+  config.plugins.push(
+    // 启用模块热替换(Enable Hot Module Replacement - HMR)
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
+  )
 }
 
 module.exports = config

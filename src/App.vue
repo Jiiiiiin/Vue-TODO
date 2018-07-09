@@ -3,10 +3,11 @@
 </template>
 
 <script>
+//throw Error('测试sourcemap')
 export default {
   data() {
     return {
-      text: 'Vue'
+      text: 'Vue !'
     }
   }
 }
