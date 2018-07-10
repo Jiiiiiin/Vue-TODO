@@ -20,8 +20,14 @@ const config = {
     rules: [{
         test: /\.vue$/,
         loader: 'vue-loader'
-      },
-      {
+      }, {
+        test: /\.jsx$/,
+        loader: 'babel-loader'
+      }, {
+        // https://vue-loader.vuejs.org/zh/guide/pre-processors.html#typescript
+        test: /\.pug$/,
+        loader: 'pug-plain-loader'
+      }, {
         test: /\.css$/,
         use: [
           // style-loader 会将css-loader处理完毕的css，解析到webpack生成的bundle中，以js的形式写到html的style标签中
@@ -30,17 +36,32 @@ const config = {
         ]
       },
       {
-        test: /\.styl$/,
+        test: /\.styl(us)?$/,
         use: [
+          // https://segmentfault.com/q/1010000004579566
           // style-loader 会将css-loader处理完毕的css，解析到webpack生成的bundle中，以js的形式写到html的style标签中
           'style-loader',
+          // css-loader 是处理css文件中的url()等
           'css-loader',
+          {
+            // https://www.ibm.com/developerworks/cn/web/1604-postcss-css/index.html
+            // 使用postcss，具体配置在postcss.config.js中
+            // PostCSS 的主要功能只有两个：第一个就是前面提到的把 CSS 解析成 JavaScript 可以操作的 AST，第二个就是调用插件来处理 AST 并得到结果。
+            // Autoprefixer: https://www.ibm.com/developerworks/cn/web/1604-postcss-css/index.html
+            loader: 'postcss-loader',
+            options: {
+              // 直接使用stylus-loader生成的css，提高编译速度
+              sourceMap: true
+            }
+          },
+          // 是将stylus文件编译成css
           'stylus-loader'
         ]
       },
       {
-        test: /\.(jpg|png)$/,
+        test: /\.(jpg|png|svg)$/,
         use: [{
+          // https://vue-loader.vuejs.org/zh/guide/asset-url.html#转换规则
           // url-loader 允许你有条件地将文件转换为内联的 base-64 URL (当文件小于给定的阈值)，这会减少小文件的 HTTP 请求数。如果文件大于该阈值，会自动的交给 file-loader 处理。
           loader: 'url-loader',
           options: {
