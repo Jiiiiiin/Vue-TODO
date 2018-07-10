@@ -151,6 +151,7 @@ if (isDev) {
     }),
     // 注意，引入顺序在这里很重要。CommonsChunkPlugin 的 'vendor' 实例，必须在 'manifest' 实例之前引入。
     // https://webpack.docschina.org/guides/caching
+    // 避免因为加入新的业务模块导致chunkid变化，导致打包的内容发生变化，故把wenpack相关的代码文件打包在另外的文件
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest'
     }),
