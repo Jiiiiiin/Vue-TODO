@@ -1,6 +1,6 @@
 <template lang="pug">
   .helper
-    span.left 2 items left
+    span.left {{unFinishedTodoLength}} items left
     span.tabs
       span(
         v-for="state in states"
@@ -16,6 +16,11 @@
 <script>
 export default {
   props: {
+    unFinishedTodoLength: {
+      type: Number,
+      required: true,
+      default: 0
+    },
     filter: {
       type: String,
       required: true
@@ -27,8 +32,12 @@ export default {
     }
   },
   methods: {
-    toggleFilter() {},
-    clearAllCompleted() {}
+    toggleFilter(state) {
+      this.$emit('toggle', state)
+    },
+    clearAllCompleted() {
+      this.$emit('clearAllCompleted')
+    }
   }
 }
 </script>
