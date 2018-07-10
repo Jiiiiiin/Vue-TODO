@@ -2,7 +2,7 @@ const path = require('path')
 // https://vue-loader.vuejs.org/zh/guide/#手动配置
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 // https://webpack.docschina.org/plugins/html-webpack-plugin/
-const HTMLPlugin = require('html-webpack-plugin')
+const HTMLWebpackPlugin = require('html-webpack-plugin')
 // 期望把css分离出打包之后的bundle文件
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
@@ -64,7 +64,7 @@ const config = {
     }),
     // make sure to include the plugin!
     new VueLoaderPlugin(),
-    new HTMLPlugin()
+    new HTMLWebpackPlugin()
   ]
 }
 
@@ -109,6 +109,15 @@ if (isDev) {
     new webpack.NoEmitOnErrorsPlugin()
   )
 } else {
+  // 将lib和业务代码提取
+  // https://webpack.docschina.org/guides/caching
+  config.entry = {
+    app: path.join(__dirname, 'src/index.js'),
+    // 单独打包
+    vendor: ['vue']
+  }
+  // 生产需要使用chunkhash（单个chunk，入口、异步组件...）实现有效缓存（在文件内容不变的情况下，文件名字不一定会变）
+  // 开发使用hash，因为dev-server需要，hash就是用来标识单次打包的标识符
   config.output.filename = '[name].[chunkhash].bundle.js'
   // 提取css
   config.module.rules.push({
@@ -136,6 +145,16 @@ if (isDev) {
       root: path.join(__dirname, './'),
       verbose: true
     }),
+    new webpack.optimize.CommonsChunkPlugin({
+      // name 必须要和entry中的对应那么值相等
+      name: 'vendor'
+    }),
+    // 注意，引入顺序在这里很重要。CommonsChunkPlugin 的 'vendor' 实例，必须在 'manifest' 实例之前引入。
+    // https://webpack.docschina.org/guides/caching
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest'
+    }),
+    // https://webpack.docschina.org/guides/caching
     new ExtractTextPlugin('styles.[contentHash:8].css')
   )
 }
