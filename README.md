@@ -7,5 +7,12 @@
 - vue + pug + stylus
 
 - 参考：
+
   - [Jokcy 老师的示例](https://github.com/Jokcy/vue-todo-tech)
   - [Vue components with Pug and Stylus](https://codeburst.io/vue-components-with-pug-and-stylus-556508b74c96)
+
+- 目录结构
+
+* src
+  - layout 放公共页面
+  - view 放页面，每个页面做一个 📂

@@ -75,11 +75,11 @@ export default {
 
 .toggle:before {
   content: '';
-  background-image: url('../assets/images/round.svg');
+  background-image: url('../../assets/images/round.svg');
   background-repeat: no-repeat;
-  background-size: 30px;
-  width: 30px;
-  height: 30px;
+  background-size: 25px;
+  width: 25px;
+  height: 25px;
   position: absolute;
   top: 5px;
   left: 12px;
@@ -88,13 +88,13 @@ export default {
 
 .toggle:checked:before {
   content: '';
-  background-image: url('../assets/images/done.svg');
+  background-image: url('../../assets/images/done.svg');
   background-repeat: no-repeat;
-  background-size: 30px;
-  width: 30px;
-  height: 30px;
+  background-size: 25px;
+  width: 25px;
+  height: 25px;
   position: absolute;
-  top: 5px;
+  top: 10px;
   left: 12px;
   cursor: pointer;
 }
@@ -107,7 +107,7 @@ export default {
   width: 40px;
   height: 40px;
   margin: auto 0;
-  font-size: 30px;
+  font-size: 25px;
   color: #cc9a9a;
   margin-bottom: 11px;
   transition: color 0.2s east-out;
