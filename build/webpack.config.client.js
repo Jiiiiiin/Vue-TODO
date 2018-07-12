@@ -75,7 +75,7 @@ if (isDev) {
     // 将lib和业务代码提取
     // https://webpack.docschina.org/guides/caching
     entry: {
-      app: path.join(__dirname, '../src/index.js'),
+      app: path.join(__dirname, '../client/index.js'),
       // 单独打包
       vendor: ['vue']
     },

@@ -4,26 +4,30 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const config = {
   target: 'web',
-  entry: path.join(__dirname, '../src/index.js'),
+  entry: path.join(__dirname, '../client/index.js'),
   output: {
     // https://juejin.im/post/5ae9ae5e518825672f19b094
     // publicPath: '/pmobile/',
     filename: 'bundle.[hash:8].js',
-    path: path.join(__dirname, 'dist')
+    path: path.join(__dirname, '../dist')
   },
   module: {
-    rules: [{
+    rules: [
+      {
         test: /\.vue$/,
         loader: 'vue-loader'
-      }, {
+      },
+      {
         test: /\.jsx$/,
         loader: 'babel-loader'
-      }, {
+      },
+      {
         test: /\.js$/,
         loader: 'babel-loader',
         // 一般的lib都是大包过的，这里是一个优化
         exclude: /node_modules/
-      }, {
+      },
+      {
         // https://vue-loader.vuejs.org/zh/guide/pre-processors.html#typescript
         test: /\.pug$/,
         loader: 'pug-plain-loader'
@@ -38,16 +42,18 @@ const config = {
       // },
       {
         test: /\.(jpg|png|svg)$/,
-        use: [{
-          // https://vue-loader.vuejs.org/zh/guide/asset-url.html#转换规则
-          // url-loader 允许你有条件地将文件转换为内联的 base-64 URL (当文件小于给定的阈值)，这会减少小文件的 HTTP 请求数。如果文件大于该阈值，会自动的交给 file-loader 处理。
-          loader: 'url-loader',
-          options: {
-            limit: 1024,
-            // 生成到和开发时候相同的path
-            name: 'recources/[path][name].[hash:8].[ext]'
+        use: [
+          {
+            // https://vue-loader.vuejs.org/zh/guide/asset-url.html#转换规则
+            // url-loader 允许你有条件地将文件转换为内联的 base-64 URL (当文件小于给定的阈值)，这会减少小文件的 HTTP 请求数。如果文件大于该阈值，会自动的交给 file-loader 处理。
+            loader: 'url-loader',
+            options: {
+              limit: 1024,
+              // 生成到和开发时候相同的path
+              name: 'recources/[path][name].[hash:8].[ext]'
+            }
           }
-        }]
+        ]
       }
     ]
   },
@@ -57,6 +63,5 @@ const config = {
     new VueLoaderPlugin()
   ]
 }
-
 
 module.exports = config
