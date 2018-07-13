@@ -101,3 +101,5 @@ npm i eslint-loader babel-eslint -D
 
 - 关于 vscode：
   [vs-code-space-before-function-parentheses](https://stackoverflow.com/questions/41150726/vs-code-space-before-function-parentheses)
+  [针对 vscode save auto format eslint space-before-function-paren 错误](http://www.jk-kj.com/2017/11/03/vscode配置eslint/)
+  关键是添加`"eslint.autoFixOnSave": true,`这一行配置
