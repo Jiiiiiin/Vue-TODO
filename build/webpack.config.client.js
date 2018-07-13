@@ -45,11 +45,12 @@ if (isDev) {
         use: [
           // https://segmentfault.com/q/1010000004579566
           // style-loader 会将css-loader处理完毕的css，解析到webpack生成的bundle中，以js的形式写到html的style标签中
-          'style-loader',
+          // 'style-loader',
+          'vue-style-loader',
           // css-loader 是处理css文件中的url()等
           'css-loader',
           {
-            // https://www.ibm.com/developerworks/cn/web/1604-postcss-css/index.html
+            // https://www.ibm.com/developerwoherks/cn/web/1604-postcss-css/index.html
             // 使用postcss，具体配置在postcss.config.js中
             // PostCSS 的主要功能只有两个：第一个就是前面提到的把 CSS 解析成 JavaScript 可以操作的 AST，第二个就是调用插件来处理 AST 并得到结果。
             // Autoprefixer: https://www.ibm.com/developerworks/cn/web/1604-postcss-css/index.html
@@ -90,7 +91,9 @@ if (isDev) {
         // 提取css
         use: ExtractTextPlugin.extract({
           // 将生成的css文件，写入html
-          fallback: 'style-loader',
+          // fallback: 'style-loader',
+          // vue-loader提出需要把上面的style-loader切换成vue-style-loader，以实现开发过程中的样式热重载功能
+          fallback: 'vue-style-loader',
           // 处理生成css
           use: [
             'css-loader',
@@ -107,7 +110,7 @@ if (isDev) {
     },
     plugins: defaultPlugins.concat([
       new CleanWebpackPlugin(['dist'], {
-        root: path.join(__dirname, './'),
+        root: path.join(__dirname, '../'),
         verbose: true
       }),
       new webpack.optimize.CommonsChunkPlugin({

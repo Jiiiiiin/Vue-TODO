@@ -1,6 +1,9 @@
 const path = require('path')
 // https://vue-loader.vuejs.org/zh/guide/#手动配置
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+// const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const createVueLoaderOptions = require('./vue-loader.config')
+// 通过package script中设置环境变量
+const isDev = process.env.NODE_ENV == 'development'
 
 const config = {
   target: 'web',
@@ -12,10 +15,12 @@ const config = {
     path: path.join(__dirname, '../dist')
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.vue$/,
-        loader: 'vue-loader'
+        use: [{
+          loader: 'vue-loader',
+          options: createVueLoaderOptions(isDev)
+        }]
       },
       {
         test: /\.jsx$/,
@@ -42,25 +47,23 @@ const config = {
       // },
       {
         test: /\.(jpg|png|svg)$/,
-        use: [
-          {
-            // https://vue-loader.vuejs.org/zh/guide/asset-url.html#转换规则
-            // url-loader 允许你有条件地将文件转换为内联的 base-64 URL (当文件小于给定的阈值)，这会减少小文件的 HTTP 请求数。如果文件大于该阈值，会自动的交给 file-loader 处理。
-            loader: 'url-loader',
-            options: {
-              limit: 1024,
-              // 生成到和开发时候相同的path
-              name: 'recources/[path][name].[hash:8].[ext]'
-            }
+        use: [{
+          // https://vue-loader.vuejs.org/zh/guide/asset-url.html#转换规则
+          // url-loader 允许你有条件地将文件转换为内联的 base-64 URL (当文件小于给定的阈值)，这会减少小文件的 HTTP 请求数。如果文件大于该阈值，会自动的交给 file-loader 处理。
+          loader: 'url-loader',
+          options: {
+            limit: 1024,
+            // 生成到和开发时候相同的path
+            name: 'recources/[path][name].[hash:8].[ext]'
           }
-        ]
+        }]
       }
     ]
   },
   // https://webpack.docschina.org/plugins/
   plugins: [
     // make sure to include the plugin!
-    new VueLoaderPlugin()
+    // new VueLoaderPlugin()
   ]
 }
 

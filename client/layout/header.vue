@@ -9,7 +9,7 @@
 
   h1 {
     font-size: 100px;
-    color: rgba(175, 47, 47, 0.4);
+    color: rgba(174, 150, 124, 0.4);
     font-weight: 100;
     margin: 20px;
   }
