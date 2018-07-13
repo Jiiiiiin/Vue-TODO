@@ -12,6 +12,8 @@ import Header from './layout/header.vue'
 import Footer from './layout/footer.jsx'
 import Todo from './views/todo/todo.vue'
 
+// console.log(Header.__docs)
+
 export default {
   components: {
     Header,

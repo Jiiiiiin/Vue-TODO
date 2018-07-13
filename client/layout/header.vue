@@ -3,6 +3,8 @@
     h1 JTODO
 </template>
 
+<docs>通用头文件</docs>
+
 <style lang="stylus" scoped>
 .main-header {
   text-align: center;
