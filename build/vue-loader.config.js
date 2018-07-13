@@ -8,8 +8,15 @@ module.exports = (isDev) => {
     // 将页面组件的css放到ExtractTextPlugin提取出来的css文件中，这种对于大型项目开启异步组件页面的可能存在一定的影响
     // !只有在正式环境才可以设置是否进行组件内样式的提取与否
     extractCSS: !isDev,
+    // 可以和style中指定的 scoped同时使用
     cssModules: {
-
+      // 指定vue组件中定义的class的名字 ![](https://ws2.sinaimg.cn/large/006tNc79gy1ft8aamyvwsj30b9070t8x.jpg)
+      // https://vue-loader.vuejs.org/zh/guide/css-modules.html#用法
+      // 生成文件路径-文件名-文件hash格式的唯一的classname ![](https://ws3.sinaimg.cn/large/006tNc79gy1ft8a76rd5qj30se0243yh.jpg)
+      // 区分模式配置，增强页面的样式安全
+      localIdentName: isDev ? '[path][name]-[hash:base64:5]' : '[hash:base64:5]',
+      // 指定首字母小写分词首字母大写，随便在组件的js中调用
+      camelCase: true
     },
     // 直接使用外面的单独制定的postcss的配置
     // postcss: {}

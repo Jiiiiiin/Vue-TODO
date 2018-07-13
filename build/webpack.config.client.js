@@ -49,6 +49,15 @@ if (isDev) {
           'vue-style-loader',
           // css-loader 是处理css文件中的url()等
           'css-loader',
+          // {
+          //   loader: 'css-loader',
+          //   options: {
+          //     // 指定开启css module，针对import的css使用该功能
+          //     // 参考footer.jsx的引入方式
+          //     module: true,
+          //     localIdentName: isDev ? '[path][name]-[hash:base64:5]' : '[hash:base64:5]',
+          //   }
+          // },
           {
             // https://www.ibm.com/developerwoherks/cn/web/1604-postcss-css/index.html
             // 使用postcss，具体配置在postcss.config.js中
