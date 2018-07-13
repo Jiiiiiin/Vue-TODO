@@ -26,16 +26,16 @@ export default {
       required: true
     }
   },
-  data() {
+  data () {
     return {
       states: ['all', 'active', 'completed']
     }
   },
   methods: {
-    toggleFilter(state) {
+    toggleFilter (state) {
       this.$emit('toggle', state)
     },
-    clearAllCompleted() {
+    clearAllCompleted () {
       this.$emit('clearAllCompleted')
     }
   }

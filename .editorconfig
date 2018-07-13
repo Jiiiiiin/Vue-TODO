@@ -1,0 +1,13 @@
+# 标明当前文件是editorconfig的根文件不需要再去其他地方找了
+root = true
+
+# 为所有文件指定规范
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 2
+indent_style = space
+# 保存文件自动加空行
+insert_final_newline = true
+# 写代码的时候每一行的空格自动删除
+trim_trailing_whitespace = true

@@ -9,7 +9,7 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const baseConfig = require('./webpack.config.base')
 // 通过package script中设置环境变量
-const isDev = process.env.NODE_ENV == 'development'
+const isDev = process.env.NODE_ENV === 'development'
 // 只用于client端渲染
 const defaultPlugins = [
   new webpack.DefinePlugin({

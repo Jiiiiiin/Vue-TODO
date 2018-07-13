@@ -16,6 +16,11 @@ const config = {
   },
   module: {
     rules: [{
+        test: /\.(vue|js|jsx)$/,
+        loader: 'eslint-loader',
+        exclude: /node_modules/,
+        enforce: 'pre'
+      }, {
         test: /\.vue$/,
         use: [{
           loader: 'vue-loader',

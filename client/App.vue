@@ -20,7 +20,7 @@ export default {
     Footer,
     Todo
   },
-  data() {
+  data () {
     return {
       text: 'Vue !'
     }
