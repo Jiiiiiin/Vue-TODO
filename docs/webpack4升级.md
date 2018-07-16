@@ -74,6 +74,9 @@ const config = {
       // https://webpack.docschina.org/concepts/mode
       // new webpack.NoEmitOnErrorsPlugin()
     ])
+
+    # 下面这个依赖可以警告忽略
+    # "ajv": "^6.5.2",
 ```
 
 - vue-loader 升级
@@ -92,3 +95,13 @@ jiiiiiin@jiiiiiins-MacBook-Pro  ~/Documents/WebstormProjects/todos   fe
 ```
 
 > [vue-loader 文档](https://vue-loader.vuejs.org/zh/guide/extract-css.html#webpack-4)
+
+- 打包对比
+
+升级之前:
+![升级之前](https://ws2.sinaimg.cn/large/006tNc79gy1ftbiwkpxdgj317m0fcdi7.jpg)
+
+升级之后:
+![升级之后](https://ws1.sinaimg.cn/large/006tNc79gy1ftbip84ioqj31bq0rw0ua.jpg)
+
+- [修改详细日志](https://github.com/Jiiiiiin/Vue-TODO/commit/0131e7b53d1d36eaa6884a128bc70e577acad7e5)
