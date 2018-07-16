@@ -3,7 +3,7 @@ const path = require('path')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 // 期望把css分离出打包之后的bundle文件
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+// const CleanWebpackPlugin = require('clean-webpack-plugin')
 const webpack = require('webpack')
 // 会根据
 const merge = require('webpack-merge')
@@ -29,7 +29,7 @@ const devServer = {
   overlay: {
     errors: true
   },
-  hot: true,
+  hot: true
 }
 
 let config
@@ -118,10 +118,10 @@ if (isDev) {
       }]
     },
     plugins: defaultPlugins.concat([
-      new CleanWebpackPlugin(['dist'], {
-        root: path.join(__dirname, '../'),
-        verbose: true
-      }),
+      // new CleanWebpackPlugin(['dist'], {
+      //   root: path.join(__dirname, '../'),
+      //   verbose: true
+      // }),
       new webpack.optimize.CommonsChunkPlugin({
         // name 必须要和entry中的对应那么值相等
         name: 'vendor'
