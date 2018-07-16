@@ -9,6 +9,7 @@
 - 参考：
 
   - [Jokcy 老师的示例](https://github.com/Jokcy/vue-todo-tech)
+  - [Jokcy 老师的 Vue 核心技术 Vue+Vue-Router+Vuex+SSR 实战精讲](https://coding.imooc.com/learn/list/196.html)
   - [Vue components with Pug and Stylus](https://codeburst.io/vue-components-with-pug-and-stylus-556508b74c96)
 
 - 目录结构
