@@ -2,8 +2,10 @@ const path = require('path')
 // https://webpack.docschina.org/plugins/html-webpack-plugin/
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 // 期望把css分离出打包之后的bundle文件
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+// webpack4废弃
+// const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+// const CleanWebpackPlugin = require('clean-webpack-plugin')
 const webpack = require('webpack')
 // 会根据
 const merge = require('webpack-merge')
@@ -12,13 +14,15 @@ const baseConfig = require('./webpack.config.base')
 const isDev = process.env.NODE_ENV === 'development'
 // 只用于client端渲染
 const defaultPlugins = [
-  new webpack.DefinePlugin({
-    // vue会根据这个配置，根据不同的环境去区分打包
-    'process.env': {
-      // 比如开发环境，会输出一些提示，而生产不会等等
-      NODE_ENV: isDev ? '"development"' : '"production"'
-    }
-  }),
+  // webpack4被弃用
+  // https://webpack.docschina.org/concepts/mode
+  // new webpack.DefinePlugin({
+  //   // vue会根据这个配置，根据不同的环境去区分打包
+  //   'process.env': {
+  //     // 比如开发环境，会输出一些提示，而生产不会等等
+  //     NODE_ENV: isDev ? '"development"' : '"production"'
+  //   }
+  // }),
   new HTMLWebpackPlugin()
 ]
 
@@ -29,7 +33,7 @@ const devServer = {
   overlay: {
     errors: true
   },
-  hot: true,
+  hot: true
 }
 
 let config
@@ -37,7 +41,8 @@ let config
 // 根据不同环境去做判断不同的配置
 if (isDev) {
   config = merge(baseConfig, {
-    devtool: '#inline-source-map',
+    // webpack 4 默认指定
+    // devtool: '#inline-source-map',
     devServer,
     module: {
       rules: [{
@@ -54,8 +59,8 @@ if (isDev) {
           //   options: {
           //     // 指定开启css module，针对import的css使用该功能
           //     // 参考footer.jsx的引入方式
-          //     module: true,
-          //     localIdentName: isDev ? '[path][name]-[hash:base64:5]' : '[hash:base64:5]',
+          //     modules: true,
+          //     localIdentName: isDev ? '[path][name]-[hash:base64:5]' : '[hash:base64:5]'
           //   }
           // },
           {
@@ -76,8 +81,10 @@ if (isDev) {
     },
     plugins: defaultPlugins.concat([
       // 启用模块热替换(Enable Hot Module Replacement - HMR)
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoEmitOnErrorsPlugin()
+      new webpack.HotModuleReplacementPlugin()
+      // webpack4 自动根据mode配置
+      // https://webpack.docschina.org/concepts/mode
+      // new webpack.NoEmitOnErrorsPlugin()
     ])
   })
 } else {
@@ -85,9 +92,9 @@ if (isDev) {
     // 将lib和业务代码提取
     // https://webpack.docschina.org/guides/caching
     entry: {
-      app: path.join(__dirname, '../client/index.js'),
+      app: path.join(__dirname, '../client/index.js')
       // 单独打包
-      vendor: ['vue']
+      // vendor: ['vue']
     },
     output: {
       // 生产需要使用chunkhash（单个chunk，入口、异步组件...）实现有效缓存（在文件内容不变的情况下，文件名字不一定会变）
@@ -98,45 +105,70 @@ if (isDev) {
       rules: [{
         test: /\.styl(us)?$/,
         // 提取css
-        use: ExtractTextPlugin.extract({
-          // 将生成的css文件，写入html
-          // fallback: 'style-loader',
-          // vue-loader提出需要把上面的style-loader切换成vue-style-loader，以实现开发过程中的样式热重载功能
-          fallback: 'vue-style-loader',
-          // 处理生成css
-          use: [
-            'css-loader',
-            {
-              loader: 'postcss-loader',
-              options: {
-                sourceMap: true
-              }
-            },
-            'stylus-loader'
-          ]
-        })
+        // use: ExtractTextPlugin.extract({
+        //   // 将生成的css文件，写入html
+        //   // fallback: 'style-loader',
+        //   // vue-loader提出需要把上面的style-loader切换成vue-style-loader，以实现开发过程中的样式热重载功能
+        //   fallback: 'vue-style-loader',
+        //   // 处理生成css
+        //   use: [
+        //     'css-loader',
+        //     {
+        //       loader: 'postcss-loader',
+        //       options: {
+        //         sourceMap: true
+        //       }
+        //     },
+        //     'stylus-loader'
+        //   ]
+        // })
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true
+            }
+          },
+          'stylus-loader'
+        ]
       }]
     },
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+        name: 'common'
+      },
+      runtimeChunk: {
+        name: 'runtime'
+      },
+      // https://zhuanlan.zhihu.com/p/34421707
+      minimize: true
+    },
     plugins: defaultPlugins.concat([
-      new CleanWebpackPlugin(['dist'], {
-        root: path.join(__dirname, '../'),
-        verbose: true
-      }),
-      new webpack.optimize.CommonsChunkPlugin({
-        // name 必须要和entry中的对应那么值相等
-        name: 'vendor'
-      }),
-      // 注意，引入顺序在这里很重要。CommonsChunkPlugin 的 'vendor' 实例，必须在 'manifest' 实例之前引入。
-      // https://webpack.docschina.org/guides/caching
-      // 避免因为加入新的业务模块导致chunkid变化，导致打包的内容发生变化，故把wenpack相关的代码文件打包在另外的文件
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'manifest'
-      }),
-
+      // new CleanWebpackPlugin(['dist'], {
+      //   root: path.join(__dirname, '../'),
+      //   verbose: true
+      // }),
+      // CommonsChunkPlugin在webpack4被废弃
+      // new webpack.optimize.CommonsChunkPlugin({
+      //   // name 必须要和entry中的对应那么值相等
+      //   name: 'vendor'
+      // }),
+      // // 注意，引入顺序在这里很重要。CommonsChunkPlugin 的 'vendor' 实例，必须在 'manifest' 实例之前引入。
+      // // https://webpack.docschina.org/guides/caching
+      // // 避免因为加入新的业务模块导致chunkid变化，导致打包的内容发生变化，故把wenpack相关的代码文件打包在另外的文件
+      // new webpack.optimize.CommonsChunkPlugin({
+      //   name: 'manifest'
+      // }),
       // 指定输出的css的名称
       // 使用css文件内容的hash
       // https://webpack.docschina.org/guides/caching
-      new ExtractTextPlugin('styles.[contentHash:8].css')
+      // new ExtractTextPlugin('styles.[contentHash:8].css')
+      new MiniCssExtractPlugin({
+        filename: 'styles.[contentHash:8].css'
+      })
     ])
   })
 }
