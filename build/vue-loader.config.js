@@ -3,12 +3,18 @@
 
 module.exports = (isDev) => {
   return {
+    // vue-loader@15废弃 https://github.com/vuejs/vue-docs-zh-cn/blob/master/vue-template-compiler/README.md#选项
     // 删除template中的空格（避免空格导致的css问题）
-    preserveWhitepace: true,
+    // preserveWhitepace: true,
+    // vue-loader@15废弃
     // 将页面组件的css放到ExtractTextPlugin提取出来的css文件中，这种对于大型项目开启异步组件页面的可能存在一定的影响
     // !只有在正式环境才可以设置是否进行组件内样式的提取与否
-    extractCSS: !isDev,
+    // extractCSS: !isDev,
     // 可以和style中指定的 scoped同时使用
+    // https://github.com/vuejs/vue-docs-zh-cn/blob/master/vue-template-compiler/README.md#选项
+    compilerOptions: {
+      preserveWhitespace: true
+    },
     cssModules: {
       // 指定vue组件中定义的class的名字 ![](https://ws2.sinaimg.cn/large/006tNc79gy1ft8aamyvwsj30b9070t8x.jpg)
       // https://vue-loader.vuejs.org/zh/guide/css-modules.html#用法
@@ -17,7 +23,7 @@ module.exports = (isDev) => {
       localIdentName: isDev ? '[path][name]-[hash:base64:5]' : '[hash:base64:5]',
       // 指定首字母小写分词首字母大写，随便在组件的js中调用
       camelCase: true
-    },
+    }
     // 直接使用外面的单独制定的postcss的配置
     // postcss: {}
     // 根据npm script中定义的process.env.NODE_ENV来判断是否需要进行vue组件的热重载（非css热重载，因为样式的热重载是根据vue-style-loader来实现的）
