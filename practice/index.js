@@ -1,1 +1,2 @@
-import './instance/index'
+// import './instance/index'
+import './lifecycle/index'
