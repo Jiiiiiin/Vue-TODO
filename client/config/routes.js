@@ -1,6 +1,4 @@
-import Todo from '../views/todo/todo.vue'
-import Login from '../views/login/Login.vue'
-import Menu from '../views/menu/Menu.vue'
+// import Todo from '../views/todo/todo.vue'
 // https://router.vuejs.org/zh/guide/#html
 // 当前配置用来管理应用的路由配置项，组件和每一个路由节点的映射
 export default [{
@@ -8,7 +6,8 @@ export default [{
   redirect: '/menu'
 }, {
   path: '/menu',
-  component: Menu
+  component: () =>
+    import('../views/menu/Menu.vue')
 }, {
   path: '/app/:userid',
   // 【props: true】让userid参数直接作为组件的一个属性进行赋值
@@ -21,7 +20,10 @@ export default [{
   // name: '小马'
   // },
   name: 'app',
-  component: Todo,
+  // component: Todo,
+  // 需要配合 npm i babel-plugin-syntax-dynamic-import -d 插件使用，才能使用动态import这个feat
+  component: () =>
+    import('../views/todo/todo.vue'),
   // 针对一个页面有多个router-view节点需要显示不同的内容（组件）的配置方式
   // components: {
   //   default: Todo,
@@ -41,5 +43,6 @@ export default [{
   // }]
 }, {
   path: '/login/',
-  component: Login
+  component: () =>
+    import('../views/login/Login.vue')
 }]

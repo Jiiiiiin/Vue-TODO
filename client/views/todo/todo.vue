@@ -116,6 +116,10 @@ export default {
     //       vm.xxx = res.xxx
     //     }
     // })
+  },
+  beforeRouteLeave (to, from, next) {
+    // 在这里可以针对页面离开之前进行一些数据的缓存或者提醒
+    next()
   }
 }
 </script>
