@@ -80,8 +80,42 @@ export default {
   },
   mounted () {
     // console.log(this.$route)
-    console.log(this.userid)
+    console.log('todo mounted', this.userid)
     // this.userid = this.$route.params.userid
+  },
+  beforeRouteEnter (to, from, next) {
+    console.log(
+      '组件内【todo】路由守卫 beforeRouteEnter',
+      to.path,
+      from.path,
+      this
+    )
+    // next()
+    next(vm => {
+      // 在这里才能访问到当前组件的实例
+      console.log('after enter this.userid is', vm.userid)
+    })
+  },
+  // 自有当前组件被多个路由定义所使用（复用），但是params被更新之后才会被调用
+  // 因为同一个组件，定义在不同的路由定义【routes.js】中，其实会被复用
+  // 这个钩子的作用就是同一个组件，但是参数不同，需要渲染的*业务数据*也不同，那么发送请求的时机就必须在这个时候
+  // 还有另外一种做法就是检测params props，添加一个watch，但是这种就加大了开销，需要实时监控
+  // 在这个节点进行数据加载如果出错，还可以通过next函数返回上一个页面，然后提示用户，那么url就不会变
+  beforeRouteUpdate (to, from, next) {
+    console.log(
+      '组件内【todo】路由守卫 beforeRouteUpdate',
+      to.path,
+      from.path,
+      this
+    )
+    next()
+    // 获取服务器端数据
+    // 设置数据：
+    // Vue.$ajax().then((res) => {
+    //    next(vm => {
+    //       vm.xxx = res.xxx
+    //     }
+    // })
   }
 }
 </script>

@@ -29,7 +29,14 @@ export default {
     return {
       text: 'Vue !'
     }
+  },
+  mounted () {
+    console.log('app mounted')
   }
+  // ！这个钩子不会像替换到router-view节点的组件里面定义那样执行
+  // beforeRouteEnter (to, from, next) {
+  //   console.log('组件内【App】路由守卫 beforeRouteEnter', to.path, from.path)
+  // }
 }
 </script>
 

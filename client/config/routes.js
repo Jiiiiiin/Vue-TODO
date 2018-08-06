@@ -22,8 +22,17 @@ export default [{
   // },
   name: 'app',
   component: Todo,
+  // 针对一个页面有多个router-view节点需要显示不同的内容（组件）的配置方式
+  // components: {
+  //   default: Todo,
+  //   [router-view-name]: [Comp]
+  // },
   meta: {
     title: 'this is todo app'
+  },
+  beforeEnter: (to, from, next) => {
+    console.log('单个路由【app】定义路由守卫 beforeEnter', to.path, from.path)
+    next()
   }
   // 嵌套路由
   // children: [{
