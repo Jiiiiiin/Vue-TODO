@@ -2,7 +2,8 @@
 #app
   #cover
   Header
-  Todo
+  // Todo
+  router-view
   Footer
 
 </template>

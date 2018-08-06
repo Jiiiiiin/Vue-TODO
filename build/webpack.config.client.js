@@ -23,7 +23,9 @@ const defaultPlugins = [
   //     NODE_ENV: isDev ? '"development"' : '"production"'
   //   }
   // }),
-  new HTMLWebpackPlugin()
+  new HTMLWebpackPlugin({
+    template: path.join(__dirname, './template.html')
+  })
 ]
 
 const devServer = {
