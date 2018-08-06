@@ -35,7 +35,14 @@ const devServer = {
   overlay: {
     errors: true
   },
-  hot: true
+  hot: true,
+  historyApiFallback: {
+    // 这里指定的index.html就是HTMLWebpackPlugin通过模板生成的index.html
+    // 如果webpack.out的publicPath配置了，如`/public/`这样的配置，那么下面的配置也需要跟着改变
+    // `'/public/index.html'`
+    index: '/public/index.html'
+    // index: '/index.html'
+  }
 }
 
 let config

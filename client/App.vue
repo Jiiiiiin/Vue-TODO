@@ -3,7 +3,11 @@
   #cover
   Header
   // Todo
-  router-view
+  // 包裹router-view的transition会作用于每一个路由的切换
+  transition(
+    name="fade"
+  )
+    router-view
   Footer
 
 </template>

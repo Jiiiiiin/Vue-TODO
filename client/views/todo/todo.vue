@@ -4,7 +4,7 @@
       class="add-input"
       type="text"
       autofocus="autofocus"
-      placeholder="接下去要做什么？"
+      :placeholder="userid + '接下去要记录什么？'"
       @keyup.enter="addTodo"
     )
     Item(
@@ -19,6 +19,8 @@
       @toggle="toggleFilter"
       @clearAllCompleted="clearAllCompleted"
     )
+    // 做嵌套路由测试
+    // router-view
 </template>
 
 <script>
@@ -31,10 +33,17 @@ export default {
     Item,
     Tabs
   },
+  props: {
+    userid: {
+      type: String,
+      default: 'youke'
+    }
+  },
   data () {
     return {
       filter: 'all',
       todos: []
+      // userid: ''
     }
   },
   computed: {
@@ -68,6 +77,11 @@ export default {
     clearAllCompleted () {
       this.todos = this.todos.filter(todo => todo.completed === false)
     }
+  },
+  mounted () {
+    // console.log(this.$route)
+    console.log(this.userid)
+    // this.userid = this.$route.params.userid
   }
 }
 </script>

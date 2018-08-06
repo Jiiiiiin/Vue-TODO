@@ -15,7 +15,10 @@ const config = {
     // https://juejin.im/post/5ae9ae5e518825672f19b094
     // publicPath: '/pmobile/',
     filename: 'bundle.[hash:8].js',
-    path: path.join(__dirname, '../dist')
+    path: path.join(__dirname, '../dist'),
+    // https://juejin.im/post/5ae9ae5e518825672f19b094
+    // 需要和服务器比如devServer配置使用
+    publicPath: '/public/'
   },
   module: {
     rules: [{

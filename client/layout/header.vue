@@ -1,7 +1,7 @@
 <template lang="pug">
   <!-- header(:class='$style.mainHeader') -->
   header(class='main-header')
-    h1 JTODO
+    h1 JTodo
 </template>
 
 <docs>通用头文件</docs>
