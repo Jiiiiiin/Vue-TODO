@@ -32,6 +32,9 @@ export default {
   },
   mounted () {
     console.log('app mounted')
+    // 每一个组件内部都会被注入
+    // 指向应用入口（index.js）中传入跟实例的store对象
+    console.log('app mounted $store', this.$store)
   }
   // ！这个钩子不会像替换到router-view节点的组件里面定义那样执行
   // beforeRouteEnter (to, from, next) {

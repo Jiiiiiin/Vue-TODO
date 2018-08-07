@@ -19,6 +19,11 @@
       :to="{path:'/login'}"
     ) login
     </li>
+    <li>
+       router-link(
+      :to="{path:'/VuexTest'}"
+    ) VuexTest
+    </li>
   </ul>
 </template>
 

@@ -5,6 +5,10 @@ export default [{
   path: '/',
   redirect: '/menu'
 }, {
+  path: '/VuexTest',
+  component: () =>
+    import('../views/test/VuexTest.vue')
+}, {
   path: '/menu',
   component: () =>
     import('../views/menu/Menu.vue')

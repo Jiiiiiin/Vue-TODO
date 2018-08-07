@@ -1,12 +1,16 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Vuex from 'vuex'
 import App from './App.vue'
 import './assets/styles/global.styl'
 import createRouter from './config/router'
+import createStore from './store/store'
 
 Vue.use(VueRouter)
+Vue.use(Vuex)
 
 const router = createRouter()
+const store = createStore()
 
 // 路由全局守卫钩子，在每次路由跳转的时候，以下钩子都会被触发，优先于组件的生命周期钩子被调用
 // 准备进行路由跳转的时候调用
@@ -36,5 +40,6 @@ router.afterEach((to, from) => {
 
 new Vue({
   router,
+  store,
   render: (h) => h(App)
 }).$mount('#root')
