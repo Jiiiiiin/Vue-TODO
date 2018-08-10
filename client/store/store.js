@@ -26,7 +26,7 @@ export default () => {
         modules: {
           c: {
             state: {
-              text: 'ccc model text...'
+              text: 'ccc model text...!!!'
             }
           }
         },
@@ -94,6 +94,33 @@ export default () => {
       }
     }
   })
+
+  // 加入针对vuex的热更新功能，依赖webpack支持
+  if (module.hot) {
+    console.log('处理vuex热更新')
+    module.hot.accept([
+      // 针对需要进行热更新的东西
+      './state/state',
+      './getters/getters',
+      './mutations/mutations',
+      './actions/actions'
+    ], () => {
+      // 开启热更新功能
+      // 不能用import，因为import只能写在最外层，不能再业务代码逻辑里面书写
+      const newState = require('./state/state').default
+      const newGetters = require('./getters/getters').default
+      const newMutations = require('./mutations/mutations').default
+      const newActions = require('./actions/actions').default
+
+      store.hotUpdate({
+        state: newState,
+        getters: newGetters,
+        mutations: newMutations,
+        actions: newActions
+      })
+    })
+  }
+
   return store
 }
 
