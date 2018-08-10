@@ -18,6 +18,32 @@ store.registerModule('dynamicModel', {
   }
 })
 
+// store.unregisterModule('dynamicModel')
+
+// watch state中某个属性的变化，可以进行一些预处理和拦截
+// store.watch((state) => {
+//   // 监听一个需要得到的返回值
+//   // 相当于定义一个getter方法
+//   return state.count + 1
+// }, (newCount) => {
+//   // 一旦上面修改了，那么当前这个方法就会被调用
+//   console.log(`newCount: ${newCount}`)
+// })
+
+// 可以订阅mutation的调用
+// store.subscribe((mutation, state) => {
+//   // 每一次mutation被调用，都会调用这里的订阅函数
+//   // 这里的mutation参数：{type: "updateCount", payload: "1"}
+//   // type就是指调用的是哪一个mutation
+//   // payload是调用时候传递的参数
+//   console.log(`subscribe mutation ${mutation}`, mutation)
+// })
+
+// 可以订阅action的调用
+// store.subscribeAction((action, state) => {
+//   console.log(`subscribe action ${action}`, action)
+// })
+
 // 路由全局守卫钩子，在每次路由跳转的时候，以下钩子都会被触发，优先于组件的生命周期钩子被调用
 // 准备进行路由跳转的时候调用
 router.beforeEach((to, from, next) => {

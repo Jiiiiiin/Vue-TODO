@@ -17,6 +17,13 @@ export default () => {
     getters,
     mutations,
     actions,
+    // plugins: [
+    //   // 在plugin初始化的时候回把当前的store传递过来
+    //   (store) => {
+    //     // 这个方法只会执行一次，但是在这里可以去订阅或者声明自定义模块
+    //     console.log('my plugin invoked')
+    //   }
+    // ],
     // 测试模块
     modules: {
       // 给每个模块取不同的名字，这个模块就具有了一个作用于

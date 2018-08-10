@@ -19,4 +19,8 @@
   - view 放页面，每个页面做一个 📂
 
 - 更新
+
   - [升级到 webpack4](https://github.com/Jiiiiiin/Vue-TODO/commit/0131e7b53d1d36eaa6884a128bc70e577acad7e5)
+  - 学习 vue-router 和 vuex
+
+    ![](https://ws3.sinaimg.cn/large/006tNbRwgy1fu4o8zsfwwj30in0dt3z7.jpg)

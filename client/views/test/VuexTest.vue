@@ -1,5 +1,15 @@
 <template lang="pug">
   #test-vuex
+    .input-view
+      input(
+        class="count-input"
+        type="text"
+        autofocus="autofocus"
+        placeholder="修改state中count的值"
+        v-model="inputCount"
+        @keyup.enter="addTodo"
+      )
+
     p count: {{counter}}
     p fullName: {{fullName}}
     p modules textA: {{textA}} {{aTextPlus}}
@@ -29,6 +39,17 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 export default {
+  data () {
+    return {
+      inputCount: this.$store.state.count
+    }
+  },
+  watch: {
+    inputCount (newCount) {
+      console.log(`watch newCount: ${newCount}`)
+      this.updateCount(newCount)
+    }
+  },
   computed: {
     // ==== 测试模块
     textA () {
@@ -98,7 +119,7 @@ export default {
     //   count: 10,
     //   timeout: 1000
     // })
-    // this.updateCountAsyc({ count: 10, timeout: 1000 })
+    // this.updateCountAsync({ count: 10, timeout: 1000 })
   }
 }
 </script>
@@ -106,5 +127,9 @@ export default {
 <style lang="stylus" scoped>
 #test-vuex {
   padding: 0px 10px;
+
+  .count-input {
+    padding: 10px;
+  }
 }
 </style>
