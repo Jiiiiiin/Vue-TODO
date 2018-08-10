@@ -22,6 +22,7 @@
         @click="callBrotherMutation()"
         style="margin-left:10px"
       ) callBrotherMutation
+    p modules dynamicModel: {{dynamicModelText}}
 
 </template>
 
@@ -45,7 +46,8 @@ export default {
       // counter: 'count'
       // 或者使用下面的写法，具有更好的灵活性
       counter: state => state.count + 1,
-      cText: state => state.a.c.text
+      cText: state => state.a.c.text,
+      dynamicModelText: state => state.dynamicModel.text
       // ！下面这种方式不生效
       // cText: 'a/c/text'
     }),

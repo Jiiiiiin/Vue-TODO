@@ -17,6 +17,7 @@ export default () => {
     getters,
     mutations,
     actions,
+    // 测试模块
     modules: {
       // 给每个模块取不同的名字，这个模块就具有了一个作用于
       a: {
@@ -25,7 +26,7 @@ export default () => {
         modules: {
           c: {
             state: {
-              text: 'ccc model text'
+              text: 'ccc model text...'
             }
           }
         },

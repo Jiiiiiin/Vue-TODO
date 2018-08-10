@@ -11,6 +11,12 @@ Vue.use(Vuex)
 
 const router = createRouter()
 const store = createStore()
+// 测试动态模块
+store.registerModule('dynamicModel', {
+  state: {
+    text: 3
+  }
+})
 
 // 路由全局守卫钩子，在每次路由跳转的时候，以下钩子都会被触发，优先于组件的生命周期钩子被调用
 // 准备进行路由跳转的时候调用
